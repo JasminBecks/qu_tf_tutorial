@@ -9,3 +9,4 @@ Helpers for the QU TF tutorial.
 import qutf.specs
 import qutf.util
 import qutf.data
+import qutf.plots
