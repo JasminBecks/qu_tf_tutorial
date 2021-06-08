@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash bash
 
 action() {
     # determine the directy of this file (/docker) and the repo dir
