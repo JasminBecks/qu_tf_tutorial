@@ -17,6 +17,9 @@ from tqdm.notebook import tqdm
 print_ = functools.partial(six.print_, flush=True)
 
 
+E, PX, PY, PZ = range(4)
+
+
 # file download helper
 def download(src, dst, bar=None):
     import wget
