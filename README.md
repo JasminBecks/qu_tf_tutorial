@@ -2,7 +2,7 @@
 
 ### Starting the notebook
 
-There are two methods to start the exercise notebook, both of which require [docker](https://www.docker.com/get-started) to be installed on your system.
+There are three methods to start the exercise notebook. Methods 1 and 2 require [docker](https://www.docker.com/get-started) to be installed on your system.
 
 
 #### 1. Docker image with a local checkout (recommended for working on your local machine)
@@ -41,3 +41,12 @@ As above, make sure not to run the container as root!
 ```shell
 docker run -ti -u $(id -u):$(id -g) -p 8888:8888 riga/qu_tf_tutorial
 ```
+
+
+#### 3. Binder
+
+Just click on the button below to start a notebook server on mybinder.org:
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/riga/qu_tf_tutorial/HEAD?filepath=tutorial.ipynb)
+
+**Note** that all data is stored on machines of the binder service and therefore not necessarily persistent.
