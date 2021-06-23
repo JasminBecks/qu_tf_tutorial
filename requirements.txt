@@ -7,3 +7,5 @@ matplotlib==3.3.0
 tqdm==4.48.2
 livelossplot==0.5.3
 jupyter_contrib_nbextensions==0.5.1
+jupyter_contrib_nbextensions
+rise==5.7.1
