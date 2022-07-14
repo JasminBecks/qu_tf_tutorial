@@ -125,8 +125,8 @@ def training_loop(dataset_train, dataset_valid, model, loss_fns, optimizer, lear
             
             bar.update()
 
-        else:
-            log("dataset exhausted, stopping training")
+        # else:
+        #     log("dataset exhausted, stopping training")
 
     print("validation metrics of the best model:")
     print(f"Accuracy: {metrics['acc_valid_best']:.4f}")

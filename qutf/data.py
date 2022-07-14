@@ -10,7 +10,7 @@ import shutil
 import numpy as np
 import six
 
-from qutf import util, specs
+import util, specs
 
 
 def _check_dataset_file(kind, index):
