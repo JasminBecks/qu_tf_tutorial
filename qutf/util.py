@@ -19,6 +19,40 @@ print_ = functools.partial(six.print_, flush=True)
 
 E, PX, PY, PZ = range(4)
 
+# calculate deltaR and deltaPhi vectorized
+
+
+def deltaR2( dataset, eta1, phi1, eta2=None, phi2=None):
+    """Take either 4 arguments (eta,phi, eta,phi) or two objects that have 'eta', 'phi' methods)"""
+    if(eta2 == None and phi2 == None):
+        return deltaR2(eta1.eta(),eta1.phi(), phi1.eta(), phi1.phi())
+    de = dataset[eta1] - dataset[eta2]
+    dp = deltaPhi(dataset, phi1, phi2)
+    return de*de + dp*dp
+
+def deltaR( **args ):
+    return np.sqrt( deltaR2(**args) )
+
+def deltaPhi( dataset, p1, p2):
+    '''Computes delta phi, handling periodic limit conditions.'''
+    
+    newcol = dataset[p1] - dataset[p2]
+    debug_count = 0
+    while (newcol > np.pi).any():
+        newcol= np.where(newcol>np.pi, newcol - 2*np.pi, newcol)
+        debug_count += 1
+        if debug_count == 10:
+            print(f"looped in >np.pi condition {debug_count} times!")
+    debug_count = 0
+
+    while (newcol < -np.pi).any():
+        newcol=np.where(newcol<-np.pi, newcol + 2*np.pi, newcol)
+        debug_count += 1
+        if debug_count == 10:
+            print(f"looped in < -np.pi condition {debug_count} times!")
+            from IPython import embed; embed()
+    return newcol
+
 
 # file download helper
 def download(src, dst, bar=None):

@@ -17,8 +17,9 @@ cernbox_data_url = os.getenv("QUTF_CERNBOX_DATA_URL", "https://cernbox.cern.ch/i
 cernbox_dl_pattern = cernbox_data_url.rstrip("/") + "/download?path={}&files={}"
 
 # constants
-n_constituents = 200
-n_events_per_file = 50000
+#n_constituents = 200
+#n_events_per_file = 50000
+n_events_per_file = 2946
 n_files = {
     "train": 20,
     "valid": 8,
