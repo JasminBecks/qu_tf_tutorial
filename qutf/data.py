@@ -20,6 +20,7 @@ import json
 from . import util, specs
 
 import hyperparameters as hp
+from IPython import embed
 
 # Parameter in def data_split
 train_percentage = 0.7
@@ -168,7 +169,11 @@ def load_model_inputs(BATCH_SIZE=128, shuffle_random_state=1):
     labels, mean, std = transform_labels(labels)
     # mean, std = 0, 1
     # numeric_dict_ds = tf.data.Dataset.from_tensor_slices((dict(input_features), labels))
-    numeric_dict_ds = tf.data.Dataset.from_tensor_slices((dict(input_features), dict(labels)))
+    tf_input_features = tf.data.Dataset.from_tensor_slices(dict(input_features))
+    # tf_labels = tf.data.Dataset.from_tensor_slices(dict(labels))
+    tf_labels = tf.data.Dataset.from_tensor_slices(labels.to_numpy())
+    numeric_dict_ds = tf.data.Dataset.zip((tf_input_features, tf_labels))
+    # embed()
     train_data, validation_data, test_data = split_dataset(numeric_dict_ds, SHUFFLE_BUFFER=len(input_features), BATCH_SIZE=BATCH_SIZE)
 
     return input_features, mean, std, train_data, validation_data, test_data
@@ -231,7 +236,7 @@ def split_dataset(
     # final_train_data = train_data.take(train_validation_split)
     # validation = test_data.skip(train_validation_split)
 
-    return train_data.shuffle(SHUFFLE_BUFFER).batch(BATCH_SIZE), val_data.batch(BATCH_SIZE), test_data
+    return train_data.shuffle(SHUFFLE_BUFFER).batch(BATCH_SIZE), val_data.batch(BATCH_SIZE), test_data.batch(BATCH_SIZE)
 
 def transform_labels(labels):
     label_mean = np.mean(labels)
@@ -252,3 +257,4 @@ def transform_labels(labels):
         labels[c] = (labels[c] - label_mean[c]) / label_std[c]
 
     return labels, label_mean, label_std
+
